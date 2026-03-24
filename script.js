@@ -1,8 +1,8 @@
 // ============ STATE MANAGEMENT ============
 const APP_STATE = {
     currentUser: null,
-    users: JSON.parse(localStorage.getItem('users')) || [],
-    posts: JSON.parse(localStorage.getItem('posts')) || [],
+    users: JSON.parse(localStorage.getItem('cyberforum_users')) || [],
+    posts: JSON.parse(localStorage.getItem('cyberforum_posts')) || [],
     messages: [],
     isLoggedIn: false
 };
@@ -19,7 +19,7 @@ const regUsername = document.getElementById('regUsername');
 const regEmail = document.getElementById('regEmail');
 const regPassword = document.getElementById('regPassword');
 const regConfirmPassword = document.getElementById('regConfirmPassword');
-const tabBtns = document.querySelectorAll('.tab-btn');
+const tabBtnsHorizontal = document.querySelectorAll('.tab-btn-horizontal');
 const passwordStrength = document.getElementById('passwordStrength');
 const usernameHint = document.getElementById('usernameHint');
 
@@ -34,6 +34,7 @@ const userFollowing = document.getElementById('userFollowing');
 const logoutBtn = document.getElementById('logoutBtn');
 const mobileLogout = document.getElementById('mobileLogout');
 const openChatBtn = document.getElementById('openChatBtn');
+const addImageBtn = document.getElementById('addImageBtn');
 
 // Chat
 const chatModal = document.getElementById('chatModal');
@@ -50,8 +51,7 @@ const navMenu = document.getElementById('navMenu');
 document.addEventListener('DOMContentLoaded', () => {
     setupEventListeners();
     
-    // Check if user is logged in
-    const savedUser = localStorage.getItem('currentUser');
+    const savedUser = localStorage.getItem('cyberforum_currentUser');
     if (savedUser) {
         APP_STATE.currentUser = JSON.parse(savedUser);
         APP_STATE.isLoggedIn = true;
@@ -64,14 +64,13 @@ document.addEventListener('DOMContentLoaded', () => {
 // ============ EVENT LISTENERS ============
 function setupEventListeners() {
     // Auth Events
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', switchTab);
+    tabBtnsHorizontal.forEach(btn => {
+        btn.addEventListener('click', switchTabHorizontal);
     });
 
     loginForm.addEventListener('submit', handleLogin);
     registerForm.addEventListener('submit', handleRegister);
 
-    // Password Strength Checker
     regPassword.addEventListener('input', checkPasswordStrength);
     regUsername.addEventListener('input', checkUsernameAvailability);
 
@@ -86,34 +85,35 @@ function setupEventListeners() {
     openChatBtn.addEventListener('click', openChat);
     closeChatBtn.addEventListener('click', closeChat);
     sendChatBtn.addEventListener('click', sendMessage);
+    addImageBtn.addEventListener('click', () => {
+        showNotification('ميزة رفع الصور قريباً! 📸', 'info');
+    });
 
     chatInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') sendMessage();
     });
 
-    // Mobile Menu
     mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 
-    // Close chat on outside click
     chatModal.addEventListener('click', (e) => {
         if (e.target === chatModal) closeChat();
     });
 }
 
-// ============ TAB SWITCHING ============
-function switchTab(e) {
-    const tabName = e.target.closest('.tab-btn').getAttribute('data-tab');
+// ============ TAB SWITCHING HORIZONTAL ============
+function switchTabHorizontal(e) {
+    const tabName = e.target.closest('.tab-btn-horizontal').getAttribute('data-tab');
 
-    // Update buttons
-    tabBtns.forEach(btn => btn.classList.remove('active'));
-    e.target.closest('.tab-btn').classList.add('active');
+    tabBtnsHorizontal.forEach(btn => btn.classList.remove('active'));
+    e.target.closest('.tab-btn-horizontal').classList.add('active');
 
-    // Update forms
     document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
     if (tabName === 'login') {
         loginForm.classList.add('active');
+        loginUsername.focus();
     } else {
         registerForm.classList.add('active');
+        regUsername.focus();
     }
 }
 
@@ -163,6 +163,11 @@ function handleLogin(e) {
     const username = loginUsername.value.trim();
     const password = loginPassword.value;
 
+    if (!username || !password) {
+        showNotification('يرجى ملء جميع الحقول ❌', 'error');
+        return;
+    }
+
     const user = APP_STATE.users.find(u => 
         u.username.toLowerCase() === username.toLowerCase() && u.password === password
     );
@@ -170,7 +175,7 @@ function handleLogin(e) {
     if (user) {
         APP_STATE.currentUser = user;
         APP_STATE.isLoggedIn = true;
-        localStorage.setItem('currentUser', JSON.stringify(user));
+        localStorage.setItem('cyberforum_currentUser', JSON.stringify(user));
         
         showNotification(`أهلا بك ${user.username}! 🎉`, 'success');
         setTimeout(() => showMainPage(), 1000);
@@ -189,7 +194,6 @@ function handleRegister(e) {
     const password = regPassword.value;
     const confirmPassword = regConfirmPassword.value;
 
-    // Validation
     if (!username || !email || !password || !confirmPassword) {
         showNotification('يرجى ملء جميع الحقول ❌', 'error');
         return;
@@ -205,46 +209,50 @@ function handleRegister(e) {
         return;
     }
 
-    // Check if username exists
     if (APP_STATE.users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
         showNotification('اسم المستخدم غير متاح ❌', 'error');
         return;
     }
 
-    // Create new user
     const newUser = {
         id: Date.now(),
         username: username,
         email: email,
         password: password,
-        avatar: `https://via.placeholder.com/150?text=${username}`,
+        avatar: `https://ui-avatars.com/api/?name=${encodeURIComponent(username)}&background=00ff88&color=0f1419`,
         posts: 0,
-        followers: 0,
-        following: 0
+        followers: Math.floor(Math.random() * 100),
+        following: Math.floor(Math.random() * 100)
     };
 
     APP_STATE.users.push(newUser);
-    localStorage.setItem('users', JSON.stringify(APP_STATE.users));
+    localStorage.setItem('cyberforum_users', JSON.stringify(APP_STATE.users));
 
-    showNotification('تم إنشاء الحساب بنجاح! ✅ الآن يرجى تسجيل الدخول', 'success');
+    showNotification('تم إنشاء الحساب بنجاح! ✅', 'success');
 
-    // Switch to login
     setTimeout(() => {
-        regUsername.value = username;
-        regPassword.value = '';
+        loginUsername.value = username;
+        loginPassword.value = '';
+        regUsername.value = '';
         regEmail.value = '';
+        regPassword.value = '';
         regConfirmPassword.value = '';
-        tabBtns[0].click();
-    }, 1000);
+        tabBtnsHorizontal[0].click();
+    }, 800);
 }
 
 function logout() {
-    localStorage.removeItem('currentUser');
+    localStorage.removeItem('cyberforum_currentUser');
     APP_STATE.currentUser = null;
     APP_STATE.isLoggedIn = false;
+    APP_STATE.messages = [];
     
     showNotification('تم تسجيل الخروج بنجاح 👋', 'success');
-    setTimeout(() => showAuthPage(), 800);
+    setTimeout(() => {
+        loginForm.reset();
+        registerForm.reset();
+        showAuthPage();
+    }, 800);
 }
 
 // ============ PAGE TRANSITIONS ============
@@ -264,10 +272,13 @@ function showMainPage() {
 // ============ USER PROFILE ============
 function updateUserProfile() {
     const user = APP_STATE.currentUser;
-    profileUsername.textContent = user.username;
-    userPosts.textContent = user.posts || 0;
-    userFollowers.textContent = user.followers || 0;
-    userFollowing.textContent = user.following || 0;
+    if (user) {
+        profileUsername.textContent = user.username;
+        userPosts.textContent = user.posts || 0;
+        userFollowers.textContent = user.followers || 0;
+        userFollowing.textContent = user.following || 0;
+        document.getElementById('userAvatar').src = user.avatar;
+    }
 }
 
 // ============ POSTS ============
@@ -295,8 +306,8 @@ function createPost() {
 
     APP_STATE.posts.unshift(newPost);
     APP_STATE.currentUser.posts++;
-    localStorage.setItem('posts', JSON.stringify(APP_STATE.posts));
-    localStorage.setItem('currentUser', JSON.stringify(APP_STATE.currentUser));
+    localStorage.setItem('cyberforum_posts', JSON.stringify(APP_STATE.posts));
+    localStorage.setItem('cyberforum_currentUser', JSON.stringify(APP_STATE.currentUser));
 
     postContent.value = '';
     updateUserProfile();
@@ -309,11 +320,6 @@ function createPost() {
 function renderPosts() {
     postsFeed.innerHTML = '';
 
-    APP_STATE.posts.forEach(post => {
-        const postElement = createPostElement(post);
-        postsFeed.appendChild(postElement);
-    });
-
     if (APP_STATE.posts.length === 0) {
         postsFeed.innerHTML = `
             <div style="text-align: center; padding: 40px 20px; color: var(--text-muted);">
@@ -321,7 +327,17 @@ function renderPosts() {
                 <p>لا توجد منشورات حالياً 📭</p>
             </div>
         `;
+        return;
     }
+
+    APP_STATE.posts.forEach((post, index) => {
+        const postElement = createPostElement(post);
+        postsFeed.appendChild(postElement);
+        
+        setTimeout(() => {
+            postElement.style.animation = `slideUp 0.5s ease ${index * 0.1}s both`;
+        }, 10);
+    });
 }
 
 // ============ CREATE POST ELEMENT ============
@@ -356,18 +372,18 @@ function createPostElement(post) {
                 <i class="fas fa-comment"></i> ${post.comments} تعليق
             </span>
             <span class="stat-item">
-                <i class="fas fa-share"></i> مشاركة
+                <i class="fas fa-share"></i> ${post.shares} مشاركة
             </span>
         </div>
 
         <div class="post-actions">
-            <button class="action-btn like-btn" data-post-id="${post.id}">
+            <button type="button" class="action-btn like-btn" data-post-id="${post.id}">
                 <i class="fas fa-heart"></i> إعجاب
             </button>
-            <button class="action-btn comment-btn">
+            <button type="button" class="action-btn comment-btn" data-post-id="${post.id}">
                 <i class="fas fa-comment"></i> تعليق
             </button>
-            <button class="action-btn share-btn">
+            <button type="button" class="action-btn share-btn" data-post-id="${post.id}">
                 <i class="fas fa-share"></i> مشاركة
             </button>
         </div>
@@ -395,7 +411,7 @@ function toggleLike(btn, postId) {
     if (post) {
         if (btn.classList.contains('liked')) {
             btn.classList.remove('liked');
-            post.likes--;
+            post.likes = Math.max(0, post.likes - 1);
             post.liked = false;
         } else {
             btn.classList.add('liked');
@@ -404,7 +420,7 @@ function toggleLike(btn, postId) {
             showNotification('أعجبت بهذا المنشور ❤️', 'success');
         }
         
-        localStorage.setItem('posts', JSON.stringify(APP_STATE.posts));
+        localStorage.setItem('cyberforum_posts', JSON.stringify(APP_STATE.posts));
         renderPosts();
     }
 }
@@ -416,7 +432,7 @@ function showCommentForm(postId) {
         const post = APP_STATE.posts.find(p => p.id === postId);
         if (post) {
             post.comments++;
-            localStorage.setItem('posts', JSON.stringify(APP_STATE.posts));
+            localStorage.setItem('cyberforum_posts', JSON.stringify(APP_STATE.posts));
             renderPosts();
             showNotification('تم إضافة تعليقك! 💬', 'success');
         }
@@ -427,7 +443,8 @@ function sharePost(postId) {
     const post = APP_STATE.posts.find(p => p.id === postId);
     if (post) {
         post.shares++;
-        localStorage.setItem('posts', JSON.stringify(APP_STATE.posts));
+        localStorage.setItem('cyberforum_posts', JSON.stringify(APP_STATE.posts));
+        renderPosts();
         showNotification('تم مشاركة المنشور! 📤', 'success');
     }
 }
@@ -464,13 +481,22 @@ function sendMessage() {
     chatInput.value = '';
     renderChatMessages();
 
-    // Simulate reply
     setTimeout(() => {
+        const replies = [
+            'شكراً على رسالتك! 🤖',
+            'كيف حالك؟ 😊',
+            'في أي مساعدة؟',
+            'رائع! تابع معنا 👍',
+            'شكراً على مشاركتك الفعالة'
+        ];
+        
+        const randomReply = replies[Math.floor(Math.random() * replies.length)];
+        
         const reply = {
-            id: Date.now(),
+            id: Date.now() + 1,
             sender: 'CyberAdmin',
-            avatar: 'https://via.placeholder.com/50?text=Admin',
-            text: 'شكراً على رسالتك! 🤖',
+            avatar: 'https://ui-avatars.com/api/?name=Admin&background=00ff88&color=0f1419',
+            text: randomReply,
             timestamp: new Date().toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit' }),
             isOwn: false
         };
@@ -482,7 +508,7 @@ function sendMessage() {
 function renderChatMessages() {
     chatMessages.innerHTML = '';
 
-    APP_STATE.messages.forEach(msg => {
+    APP_STATE.messages.forEach((msg, index) => {
         const msgDiv = document.createElement('div');
         msgDiv.className = `chat-message ${msg.isOwn ? 'own' : ''}`;
         msgDiv.innerHTML = `
@@ -494,10 +520,10 @@ function renderChatMessages() {
                 <div class="message-time">${msg.timestamp}</div>
             </div>
         `;
+        msgDiv.style.animation = `slideUp 0.3s ease ${index * 0.05}s both`;
         chatMessages.appendChild(msgDiv);
     });
 
-    // Scroll to bottom
     chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
@@ -506,7 +532,6 @@ function toggleMobileMenu() {
     navMenu.classList.toggle('active');
 }
 
-// Close menu on link click
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', () => {
         navMenu.classList.remove('active');
@@ -538,6 +563,10 @@ function showNotification(message, type = 'info') {
         notification.style.background = 'rgba(255, 107, 107, 0.2)';
         notification.style.color = '#ff6b6b';
         notification.style.borderColor = '#ff6b6b';
+    } else {
+        notification.style.background = 'rgba(100, 150, 200, 0.2)';
+        notification.style.color = '#64a8d8';
+        notification.style.borderColor = '#64a8d8';
     }
 
     notification.textContent = message;
@@ -549,4 +578,5 @@ function showNotification(message, type = 'info') {
     }, 3000);
 }
 
-console.log('🔐 CyberForum - نسخة محدثة مع نظام تسجيل كامل!');
+// ============ INIT MESSAGE ============
+console.log('🔐 CyberForum تحميل كامل! اهلا بك في منتدى الأمان السيبراني 🚀');
