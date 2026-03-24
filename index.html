@@ -15,18 +15,22 @@
             <div class="auth-box">
                 <!-- شعار -->
                 <div class="auth-logo">
-                    <i class="fas fa-shield-alt"></i>
+                    <div class="logo-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
                     <h1>CYBER<span>FORUM</span></h1>
                     <p>منتدى الأمان السيبراني</p>
                 </div>
 
-                <!-- تبويبات -->
-                <div class="auth-tabs">
-                    <button class="tab-btn active" data-tab="login">
-                        <i class="fas fa-sign-in-alt"></i> تسجيل دخول
+                <!-- تبويبات أفقية -->
+                <div class="auth-tabs-horizontal">
+                    <button class="tab-btn-horizontal active" data-tab="login">
+                        <span>تسجيل دخول</span>
+                        <i class="fas fa-arrow-left"></i>
                     </button>
-                    <button class="tab-btn" data-tab="register">
-                        <i class="fas fa-user-plus"></i> إنشاء حساب
+                    <button class="tab-btn-horizontal" data-tab="register">
+                        <i class="fas fa-user-plus"></i>
+                        <span>إنشاء حساب</span>
                     </button>
                 </div>
 
@@ -35,16 +39,16 @@
                     <div class="form-group">
                         <label for="loginUsername">اسم المستخدم</label>
                         <div class="input-wrapper">
-                            <i class="fas fa-user"></i>
                             <input type="text" id="loginUsername" placeholder="ادخل اسم المستخدم" required>
+                            <i class="fas fa-user"></i>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="loginPassword">كلمة المرور</label>
                         <div class="input-wrapper">
-                            <i class="fas fa-lock"></i>
                             <input type="password" id="loginPassword" placeholder="ادخل كلمة المرور" required>
+                            <i class="fas fa-lock"></i>
                         </div>
                     </div>
 
@@ -62,8 +66,8 @@
                     <div class="form-group">
                         <label for="regUsername">اسم المستخدم</label>
                         <div class="input-wrapper">
-                            <i class="fas fa-user"></i>
                             <input type="text" id="regUsername" placeholder="اختر اسم مستخدم" required>
+                            <i class="fas fa-user"></i>
                         </div>
                         <small class="form-hint" id="usernameHint"></small>
                     </div>
@@ -71,16 +75,16 @@
                     <div class="form-group">
                         <label for="regEmail">البريد الإلكتروني</label>
                         <div class="input-wrapper">
-                            <i class="fas fa-envelope"></i>
                             <input type="email" id="regEmail" placeholder="ادخل بريدك الإلكتروني" required>
+                            <i class="fas fa-envelope"></i>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="regPassword">كلمة المرور</label>
                         <div class="input-wrapper">
-                            <i class="fas fa-lock"></i>
                             <input type="password" id="regPassword" placeholder="ادخل كلمة مرور قوية" required>
+                            <i class="fas fa-lock"></i>
                         </div>
                         <div class="password-strength" id="passwordStrength"></div>
                     </div>
@@ -88,8 +92,8 @@
                     <div class="form-group">
                         <label for="regConfirmPassword">تأكيد كلمة المرور</label>
                         <div class="input-wrapper">
-                            <i class="fas fa-lock"></i>
                             <input type="password" id="regConfirmPassword" placeholder="أعد إدخال كلمة المرور" required>
+                            <i class="fas fa-lock"></i>
                         </div>
                     </div>
 
@@ -99,7 +103,7 @@
                 </form>
             </div>
 
-            <!-- الخلفية المتحركة -->
+            <!-- الخ��فية المتحركة -->
             <div class="auth-background">
                 <div class="floating-icon">
                     <i class="fas fa-shield-alt"></i>
@@ -130,15 +134,15 @@
 
                 <nav class="nav-menu" id="navMenu">
                     <ul>
-                        <li><a href="#" class="nav-link">Home</a></li>
-                        <li><a href="#" class="nav-link">Explore</a></li>
+                        <li><a href="#" class="nav-link">الرئيسية</a></li>
+                        <li><a href="#" class="nav-link">استكشاف</a></li>
                         <li class="nav-item-dropdown">
                             <a href="#" class="nav-link">
-                                <i class="fas fa-bell"></i> Notifications
+                                <i class="fas fa-bell"></i> إشعارات
                                 <i class="fas fa-chevron-down"></i>
                             </a>
                             <div class="dropdown-menu">
-                                <a href="#">جديد تعليقات</a>
+                                <a href="#">تعليقات جديدة</a>
                                 <a href="#">إعجابات جديدة</a>
                                 <a href="#">متابعون جدد</a>
                             </div>
@@ -163,7 +167,7 @@
             <aside class="left-sidebar">
                 <div class="user-profile">
                     <div class="profile-image">
-                        <img id="userAvatar" src="https://via.placeholder.com/150" alt="User">
+                        <img id="userAvatar" src="https://via.placeholder.com/150/00ff88/0f1419?text=User" alt="User">
                     </div>
                     <h3 class="username" id="profileUsername">--</h3>
                     <p class="user-role">مهندس الأمان السيبراني</p>
@@ -208,10 +212,10 @@
                     <div class="post-form">
                         <textarea id="postContent" placeholder="شارك أفكارك..." class="post-textarea"></textarea>
                         <div class="post-actions">
-                            <button class="btn-icon" id="addImageBtn">
+                            <button type="button" class="btn-icon" id="addImageBtn">
                                 <i class="fas fa-image"></i> إضافة صورة
                             </button>
-                            <button class="btn btn-post" id="submitPostBtn">انشر</button>
+                            <button type="button" class="btn btn-post" id="submitPostBtn">انشر</button>
                         </div>
                     </div>
                 </div>
@@ -258,21 +262,21 @@
                     </div>
                     <div class="members-list">
                         <div class="member-item">
-                            <img src="https://via.placeholder.com/50" alt="Member" class="member-avatar">
+                            <img src="https://via.placeholder.com/50/00ff88/0f1419?text=BM" alt="ByteMaster" class="member-avatar">
                             <div class="member-info">
                                 <h4>ByteMaster</h4>
                                 <p>1.8k متابع</p>
                             </div>
                         </div>
                         <div class="member-item">
-                            <img src="https://via.placeholder.com/50" alt="Member" class="member-avatar">
+                            <img src="https://via.placeholder.com/50/00ff88/0f1419?text=CP" alt="CodePhantom" class="member-avatar">
                             <div class="member-info">
                                 <h4>CodePhantom</h4>
                                 <p>1.3k متابع</p>
                             </div>
                         </div>
                         <div class="member-item">
-                            <img src="https://via.placeholder.com/50" alt="Member" class="member-avatar">
+                            <img src="https://via.placeholder.com/50/00ff88/0f1419?text=ZH" alt="ZeroHack" class="member-avatar">
                             <div class="member-info">
                                 <h4>ZeroHack</h4>
                                 <p>1.3k متابع</p>
@@ -289,7 +293,7 @@
         <div class="chat-container">
             <div class="chat-header">
                 <h2>💬 دردشة سرية</h2>
-                <button class="close-btn" id="closeChatBtn">
+                <button type="button" class="close-btn" id="closeChatBtn">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -305,7 +309,7 @@
                     placeholder="اكتب رسالتك..." 
                     class="chat-input"
                 >
-                <button class="btn-send" id="sendChatBtn">
+                <button type="button" class="btn-send" id="sendChatBtn">
                     <i class="fas fa-paper-plane"></i>
                 </button>
             </div>
@@ -314,4 +318,4 @@
 
     <script src="script.js"></script>
 </body>
-</html>
+    </html>
