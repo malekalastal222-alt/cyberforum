@@ -1,98 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather Dashboard</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>CyberForum - منتدى الأمان السيبراني</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Header/Navbar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>CYBER<strong>FORUM</strong></span>
+            </div>
+            <nav class="nav-menu">
+                <ul>
+                    <li><a href="#" class="nav-link">Home</a></li>
+                    <li><a href="#" class="nav-link">Explore</a></li>
+                    <li class="nav-item-dropdown">
+                        <a href="#" class="nav-link">Notifications <i class="fas fa-chevron-down"></i></a>
+                        <div class="dropdown-menu">
+                            <a href="#">New Comments</a>
+                            <a href="#">New Likes</a>
+                            <a href="#">New Followers</a>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <button class="btn btn-login">Log In</button>
+                <button class="btn btn-signup">Sign Up</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
     <div class="container">
-        <!-- Header -->
-        <header>
-            <h1><i class="fas fa-cloud"></i> Weather Dashboard</h1>
-            <p>Get Real-time Weather Information</p>
-        </header>
-
-        <!-- Search Section -->
-        <div class="search-section">
-            <input 
-                type="text" 
-                id="cityInput" 
-                placeholder="Enter city name..." 
-                class="search-input"
-            >
-            <button id="searchBtn" class="search-btn">
-                <i class="fas fa-search"></i> Search
-            </button>
-            <button id="geolocationBtn" class="location-btn">
-                <i class="fas fa-map-marker-alt"></i> My Location
-            </button>
-        </div>
-
-        <!-- Current Weather Section -->
-        <div class="current-weather" id="currentWeather">
-            <div class="weather-card">
-                <div class="city-info">
-                    <h2 id="cityName">--</h2>
-                    <p id="weatherDescription">--</p>
-                    <p id="dateTime">--</p>
+        <!-- Left Sidebar - User Profile -->
+        <aside class="left-sidebar">
+            <div class="user-profile">
+                <div class="profile-image">
+                    <img src="https://via.placeholder.com/150" alt="GhostKernel">
                 </div>
-                <div class="weather-main">
-                    <img id="weatherIcon" src="" alt="Weather Icon" class="weather-icon">
-                    <div class="temperature">
-                        <span id="temperature">--</span>
-                        <span class="unit">°C</span>
+                <h3 class="username">GhostKernel</h3>
+                <p class="user-role">Cyber Security Engineer</p>
+                
+                <div class="user-stats">
+                    <div class="stat">
+                        <div class="stat-number">256</div>
+                        <div class="stat-label">Posts</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">1.2k</div>
+                        <div class="stat-label">Followers</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">680</div>
+                        <div class="stat-label">Following</div>
                     </div>
                 </div>
-                <div class="weather-details">
-                    <div class="detail">
-                        <i class="fas fa-tint"></i>
-                        <span>Humidity: <strong id="humidity">--</strong>%</span>
-                    </div>
-                    <div class="detail">
-                        <i class="fas fa-wind"></i>
-                        <span>Wind: <strong id="windSpeed">--</strong> m/s</span>
-                    </div>
-                    <div class="detail">
-                        <i class="fas fa-compress"></i>
-                        <span>Pressure: <strong id="pressure">--</strong> mb</span>
-                    </div>
-                    <div class="detail">
-                        <i class="fas fa-eye"></i>
-                        <span>Visibility: <strong id="visibility">--</strong> km</span>
+
+                <div class="profile-menu">
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-user"></i> My Profile
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-envelope"></i> Messages
+                    </a>
+                    <a href="#" class="menu-item">
+                        <i class="fas fa-cog"></i> Settings
+                    </a>
+                    <a href="#" class="menu-item logout">
+                        <i class="fas fa-sign-out-alt"></i> Log Out
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Feed -->
+        <main class="main-content">
+            <!-- Create Post Section -->
+            <div class="create-post-section">
+                <h2>Create a Post</h2>
+                <div class="post-form">
+                    <textarea id="postContent" placeholder="Share your thoughts..." class="post-textarea"></textarea>
+                    <div class="post-actions">
+                        <button class="btn-icon" id="addImageBtn">
+                            <i class="fas fa-image"></i> Add Image
+                        </button>
+                        <button class="btn btn-post" id="submitPostBtn">Post</button>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Hourly Forecast -->
-        <div class="forecast-section">
-            <h3>Hourly Forecast</h3>
-            <div class="hourly-forecast" id="hourlyForecast">
-                <!-- Hourly items will be inserted here -->
+            <!-- Posts Feed -->
+            <div class="posts-feed" id="postsFeed">
+                <!-- Posts will be inserted here -->
             </div>
-        </div>
+        </main>
 
-        <!-- 5-Day Forecast -->
-        <div class="forecast-section">
-            <h3>5-Day Forecast</h3>
-            <div class="daily-forecast" id="dailyForecast">
-                <!-- Daily items will be inserted here -->
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <!-- Trending Topics -->
+            <div class="trending-topics">
+                <div class="section-header">
+                    <h3>Trending Topics</h3>
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <div class="trending-list">
+                    <a href="#" class="trending-item">
+                        <span class="hash">#</span>
+                        <span class="topic-name">CyberSecurity</span>
+                    </a>
+                    <a href="#" class="trending-item">
+                        <span class="hash">#</span>
+                        <span class="topic-name">HackingTips</span>
+                    </a>
+                    <a href="#" class="trending-item">
+                        <span class="hash">#</span>
+                        <span class="topic-name">DarkWeb</span>
+                    </a>
+                    <a href="#" class="trending-item">
+                        <span class="hash">#</span>
+                        <span class="topic-name">TechNews</span>
+                    </a>
+                </div>
             </div>
-        </div>
 
-        <!-- Search History -->
-        <div class="history-section">
-            <h3>Recent Searches</h3>
-            <div class="search-history" id="searchHistory">
-                <!-- History items will be inserted here -->
+            <!-- Top Members -->
+            <div class="top-members">
+                <div class="section-header">
+                    <h3>Top Members</h3>
+                    <i class="fas fa-sliders-h"></i>
+                </div>
+                <div class="members-list">
+                    <div class="member-item">
+                        <img src="https://via.placeholder.com/50" alt="ByteMaster" class="member-avatar">
+                        <div class="member-info">
+                            <h4>ByteMaster</h4>
+                            <p>1.8k Followers</p>
+                        </div>
+                    </div>
+                    <div class="member-item">
+                        <img src="https://via.placeholder.com/50" alt="CodePhantom" class="member-avatar">
+                        <div class="member-info">
+                            <h4>CodePhantom</h4>
+                            <p>1.3k Followers</p>
+                        </div>
+                    </div>
+                    <div class="member-item">
+                        <img src="https://via.placeholder.com/50" alt="ZeroHack" class="member-avatar">
+                        <div class="member-info">
+                            <h4>ZeroHack</h4>
+                            <p>1.3k Followers</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-
-        <!-- Error Message -->
-        <div id="errorMessage" class="error-message"></div>
+        </aside>
     </div>
 
     <script src="script.js"></script>
