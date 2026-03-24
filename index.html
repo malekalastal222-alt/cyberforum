@@ -8,158 +8,308 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <!-- Header/Navbar -->
-    <header class="navbar">
-        <div class="navbar-container">
-            <div class="logo">
-                <i class="fas fa-shield-alt"></i>
-                <span>CYBER<strong>FORUM</strong></span>
-            </div>
-            <nav class="nav-menu">
-                <ul>
-                    <li><a href="#" class="nav-link">Home</a></li>
-                    <li><a href="#" class="nav-link">Explore</a></li>
-                    <li class="nav-item-dropdown">
-                        <a href="#" class="nav-link">Notifications <i class="fas fa-chevron-down"></i></a>
-                        <div class="dropdown-menu">
-                            <a href="#">New Comments</a>
-                            <a href="#">New Likes</a>
-                            <a href="#">New Followers</a>
+
+    <!-- ========== صفحة تسجيل الدخول ========== -->
+    <div id="authPage" class="auth-page active">
+        <div class="auth-container">
+            <div class="auth-box">
+                <!-- شعار -->
+                <div class="auth-logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <h1>CYBER<span>FORUM</span></h1>
+                    <p>منتدى الأمان السيبراني</p>
+                </div>
+
+                <!-- تبويبات -->
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">
+                        <i class="fas fa-sign-in-alt"></i> تسجيل دخول
+                    </button>
+                    <button class="tab-btn" data-tab="register">
+                        <i class="fas fa-user-plus"></i> إنشاء حساب
+                    </button>
+                </div>
+
+                <!-- فورم تسجيل الدخول -->
+                <form id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label for="loginUsername">اسم المستخدم</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="loginUsername" placeholder="ادخل اسم المستخدم" required>
                         </div>
-                    </li>
-                </ul>
-            </nav>
-            <div class="auth-buttons">
-                <button class="btn btn-login">Log In</button>
-                <button class="btn btn-signup">Sign Up</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPassword">كلمة المرور</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="loginPassword" placeholder="ادخل كلمة المرور" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-submit">
+                        <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                    </button>
+
+                    <div class="form-footer">
+                        <a href="#">نسيت كلمة المرور؟</a>
+                    </div>
+                </form>
+
+                <!-- فورم إنشاء حساب -->
+                <form id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label for="regUsername">اسم المستخدم</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="regUsername" placeholder="اختر اسم مستخدم" required>
+                        </div>
+                        <small class="form-hint" id="usernameHint"></small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regEmail">البريد الإلكتروني</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="regEmail" placeholder="ادخل بريدك الإلكتروني" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regPassword">كلمة المرور</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="regPassword" placeholder="ادخل كلمة مرور قوية" required>
+                        </div>
+                        <div class="password-strength" id="passwordStrength"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="regConfirmPassword">تأكيد كلمة المرور</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="regConfirmPassword" placeholder="أعد إدخال كلمة المرور" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-submit">
+                        <i class="fas fa-user-plus"></i> إنشاء حساب
+                    </button>
+                </form>
+            </div>
+
+            <!-- الخلفية المتحركة -->
+            <div class="auth-background">
+                <div class="floating-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <div class="floating-icon">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <div class="floating-icon">
+                    <i class="fas fa-code"></i>
+                </div>
             </div>
         </div>
-    </header>
+    </div>
 
-    <!-- Main Container -->
-    <div class="container">
-        <!-- Left Sidebar - User Profile -->
-        <aside class="left-sidebar">
-            <div class="user-profile">
-                <div class="profile-image">
-                    <img src="https://via.placeholder.com/150" alt="GhostKernel">
-                </div>
-                <h3 class="username">GhostKernel</h3>
-                <p class="user-role">Cyber Security Engineer</p>
-                
-                <div class="user-stats">
-                    <div class="stat">
-                        <div class="stat-number">256</div>
-                        <div class="stat-label">Posts</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">1.2k</div>
-                        <div class="stat-label">Followers</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">680</div>
-                        <div class="stat-label">Following</div>
-                    </div>
+    <!-- ========== الصفحة الرئيسية ========== -->
+    <div id="mainPage" class="main-page">
+        <!-- Header/Navbar -->
+        <header class="navbar">
+            <div class="navbar-container">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>CYBER<strong>FORUM</strong></span>
                 </div>
 
-                <div class="profile-menu">
-                    <a href="#" class="menu-item">
-                        <i class="fas fa-user"></i> My Profile
-                    </a>
-                    <a href="#" class="menu-item">
-                        <i class="fas fa-envelope"></i> Messages
-                    </a>
-                    <a href="#" class="menu-item">
-                        <i class="fas fa-cog"></i> Settings
-                    </a>
-                    <a href="#" class="menu-item logout">
-                        <i class="fas fa-sign-out-alt"></i> Log Out
-                    </a>
+                <div class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </div>
+
+                <nav class="nav-menu" id="navMenu">
+                    <ul>
+                        <li><a href="#" class="nav-link">Home</a></li>
+                        <li><a href="#" class="nav-link">Explore</a></li>
+                        <li class="nav-item-dropdown">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-bell"></i> Notifications
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <div class="dropdown-menu">
+                                <a href="#">جديد تعليقات</a>
+                                <a href="#">إعجابات جديدة</a>
+                                <a href="#">متابعون جدد</a>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+
+                <div class="auth-buttons">
+                    <button class="btn btn-chat" id="openChatBtn">
+                        <i class="fas fa-comments"></i> دردشة سرية
+                    </button>
+                    <button class="btn btn-logout" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
                 </div>
             </div>
-        </aside>
+        </header>
 
-        <!-- Main Feed -->
-        <main class="main-content">
-            <!-- Create Post Section -->
-            <div class="create-post-section">
-                <h2>Create a Post</h2>
-                <div class="post-form">
-                    <textarea id="postContent" placeholder="Share your thoughts..." class="post-textarea"></textarea>
-                    <div class="post-actions">
-                        <button class="btn-icon" id="addImageBtn">
-                            <i class="fas fa-image"></i> Add Image
-                        </button>
-                        <button class="btn btn-post" id="submitPostBtn">Post</button>
+        <!-- Main Container -->
+        <div class="container">
+            <!-- Left Sidebar -->
+            <aside class="left-sidebar">
+                <div class="user-profile">
+                    <div class="profile-image">
+                        <img id="userAvatar" src="https://via.placeholder.com/150" alt="User">
                     </div>
-                </div>
-            </div>
-
-            <!-- Posts Feed -->
-            <div class="posts-feed" id="postsFeed">
-                <!-- Posts will be inserted here -->
-            </div>
-        </main>
-
-        <!-- Right Sidebar -->
-        <aside class="right-sidebar">
-            <!-- Trending Topics -->
-            <div class="trending-topics">
-                <div class="section-header">
-                    <h3>Trending Topics</h3>
-                    <i class="fas fa-sliders-h"></i>
-                </div>
-                <div class="trending-list">
-                    <a href="#" class="trending-item">
-                        <span class="hash">#</span>
-                        <span class="topic-name">CyberSecurity</span>
-                    </a>
-                    <a href="#" class="trending-item">
-                        <span class="hash">#</span>
-                        <span class="topic-name">HackingTips</span>
-                    </a>
-                    <a href="#" class="trending-item">
-                        <span class="hash">#</span>
-                        <span class="topic-name">DarkWeb</span>
-                    </a>
-                    <a href="#" class="trending-item">
-                        <span class="hash">#</span>
-                        <span class="topic-name">TechNews</span>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Top Members -->
-            <div class="top-members">
-                <div class="section-header">
-                    <h3>Top Members</h3>
-                    <i class="fas fa-sliders-h"></i>
-                </div>
-                <div class="members-list">
-                    <div class="member-item">
-                        <img src="https://via.placeholder.com/50" alt="ByteMaster" class="member-avatar">
-                        <div class="member-info">
-                            <h4>ByteMaster</h4>
-                            <p>1.8k Followers</p>
+                    <h3 class="username" id="profileUsername">--</h3>
+                    <p class="user-role">مهندس الأمان السيبراني</p>
+                    
+                    <div class="user-stats">
+                        <div class="stat">
+                            <div class="stat-number" id="userPosts">0</div>
+                            <div class="stat-label">منشورات</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" id="userFollowers">0</div>
+                            <div class="stat-label">متابعون</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" id="userFollowing">0</div>
+                            <div class="stat-label">يتابع</div>
                         </div>
                     </div>
-                    <div class="member-item">
-                        <img src="https://via.placeholder.com/50" alt="CodePhantom" class="member-avatar">
-                        <div class="member-info">
-                            <h4>CodePhantom</h4>
-                            <p>1.3k Followers</p>
-                        </div>
+
+                    <div class="profile-menu">
+                        <a href="#" class="menu-item">
+                            <i class="fas fa-user"></i> ملفي الشخصي
+                        </a>
+                        <a href="#" class="menu-item">
+                            <i class="fas fa-envelope"></i> الرسائل
+                        </a>
+                        <a href="#" class="menu-item">
+                            <i class="fas fa-cog"></i> الإعدادات
+                        </a>
+                        <a href="#" class="menu-item logout" id="mobileLogout">
+                            <i class="fas fa-sign-out-alt"></i> تسجيل خروج
+                        </a>
                     </div>
-                    <div class="member-item">
-                        <img src="https://via.placeholder.com/50" alt="ZeroHack" class="member-avatar">
-                        <div class="member-info">
-                            <h4>ZeroHack</h4>
-                            <p>1.3k Followers</p>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Create Post -->
+                <div class="create-post-section">
+                    <h2>إنشاء منشور</h2>
+                    <div class="post-form">
+                        <textarea id="postContent" placeholder="شارك أفكارك..." class="post-textarea"></textarea>
+                        <div class="post-actions">
+                            <button class="btn-icon" id="addImageBtn">
+                                <i class="fas fa-image"></i> إضافة صورة
+                            </button>
+                            <button class="btn btn-post" id="submitPostBtn">انشر</button>
                         </div>
                     </div>
                 </div>
+
+                <!-- Posts Feed -->
+                <div class="posts-feed" id="postsFeed">
+                    <!-- المنشورات تظهر هنا -->
+                </div>
+            </main>
+
+            <!-- Right Sidebar -->
+            <aside class="right-sidebar">
+                <!-- Trending Topics -->
+                <div class="trending-topics">
+                    <div class="section-header">
+                        <h3>مواضيع رائجة</h3>
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <div class="trending-list">
+                        <a href="#" class="trending-item">
+                            <span class="hash">#</span>
+                            <span class="topic-name">الأمان السيبراني</span>
+                        </a>
+                        <a href="#" class="trending-item">
+                            <span class="hash">#</span>
+                            <span class="topic-name">نصائح القرصنة</span>
+                        </a>
+                        <a href="#" class="trending-item">
+                            <span class="hash">#</span>
+                            <span class="topic-name">الويب المظلم</span>
+                        </a>
+                        <a href="#" class="trending-item">
+                            <span class="hash">#</span>
+                            <span class="topic-name">أخبار التقنية</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Top Members -->
+                <div class="top-members">
+                    <div class="section-header">
+                        <h3>أعضاء متميزون</h3>
+                        <i class="fas fa-sliders-h"></i>
+                    </div>
+                    <div class="members-list">
+                        <div class="member-item">
+                            <img src="https://via.placeholder.com/50" alt="Member" class="member-avatar">
+                            <div class="member-info">
+                                <h4>ByteMaster</h4>
+                                <p>1.8k متابع</p>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <img src="https://via.placeholder.com/50" alt="Member" class="member-avatar">
+                            <div class="member-info">
+                                <h4>CodePhantom</h4>
+                                <p>1.3k متابع</p>
+                            </div>
+                        </div>
+                        <div class="member-item">
+                            <img src="https://via.placeholder.com/50" alt="Member" class="member-avatar">
+                            <div class="member-info">
+                                <h4>ZeroHack</h4>
+                                <p>1.3k متابع</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- ========== نافذة الدردشة السرية ========== -->
+    <div id="chatModal" class="chat-modal">
+        <div class="chat-container">
+            <div class="chat-header">
+                <h2>💬 دردشة سرية</h2>
+                <button class="close-btn" id="closeChatBtn">
+                    <i class="fas fa-times"></i>
+                </button>
             </div>
-        </aside>
+
+            <div class="chat-body" id="chatMessages">
+                <!-- الرسائل تظهر هنا -->
+            </div>
+
+            <div class="chat-input-area">
+                <input 
+                    type="text" 
+                    id="chatInput" 
+                    placeholder="اكتب رسالتك..." 
+                    class="chat-input"
+                >
+                <button class="btn-send" id="sendChatBtn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
